@@ -1,0 +1,16 @@
+# --- Dependency Directories ---
+node_modules/
+
+# --- Environment Secrets ---
+.env
+.env.development
+.env.production
+
+# --- Docker & OS Junk ---
+.dockerignore
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# --- IDEs & Editors ---
+.vscode/
