@@ -12,13 +12,12 @@ module.exports = async (payload) => {
     const inviteUrl = content.actionUrl || content.url; 
 
     const mailOptions = {
-      from: '"Corporate Hub" <noreply@company.com>',
+      from: '"Nimje Orbit" <noreply@nimjeorbit.com>',
       to: recipient,
       subject: 'You have been invited!',
       html: `<h1>Welcome!</h1><p>Join here: <a href="${inviteUrl}">${inviteUrl}</a></p>`,
     };
 
-    console.log('============== DEBUG START 🚀 ==============');
     console.log('📬 Mail Options:', mailOptions);
     
     // 🔍 DEBUG 2: Check if the transporter is actually ready
@@ -29,7 +28,6 @@ module.exports = async (payload) => {
     const info = await nodemailer.sendMail(mailOptions);
     
     console.log('✨ Message Sent ID:', info.messageId);
-    console.log('============== DEBUG END ==============');
     
     return info;
   } catch (error) {

@@ -3,22 +3,29 @@ services:
   rabbitmq:
     image: rabbitmq:4-management-alpine
     container_name: rabbitmq
+    restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin321
+    networks:
+      - notification_network
 
   # The Worker Service (The one we just built)
   notification-service:
     build: .
+    image: notification:v1.0
     container_name: notification_worker
     depends_on:
       - rabbitmq
-    environment:
-      RABBITMQ_URL: amqp://admin:admin321@rabbitmq:5672
-      SMTP_HOST: smtp.gmail.com
-      SMTP_PORT: 587
-      SMTP_USER: abc
-      SMTP_PASS: xyz
+    env_file:
+      - .env
+    networks:
+      - notification_network
+
+networks:
+  notification_network:
+    driver: bridge
+    name: notification_network
